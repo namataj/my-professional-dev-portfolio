@@ -1,0 +1,53 @@
+{
+  "info": {
+    "name": "James Namata Portfolio API",
+    "description": "Requests for the portfolio Express API. startedAt is set automatically to 10 seconds ago so the spam timing check passes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:5000" }],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": { "type": "text/javascript", "exec": ["pm.variables.set('startedAt', Date.now() - 10000);"] }
+    }
+  ],
+  "item": [
+    {
+      "name": "Health check",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/health" }
+    },
+    {
+      "name": "Create quote request",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/inquiries",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"Jane Client\",\n  \"email\": \"jane@example.com\",\n  \"phone\": \"\",\n  \"organization\": \"Acme Retail\",\n  \"service\": \"web-application\",\n  \"description\": \"I need an inventory management system for three store locations.\",\n  \"budget\": \"$1,500–$5,000\",\n  \"timeline\": \"1–3 months\",\n  \"noPhiConfirmed\": true,\n  \"website\": \"\",\n  \"startedAt\": {{startedAt}}\n}"
+        }
+      }
+    },
+    {
+      "name": "Create quote request (invalid)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/inquiries",
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"not-an-email\",\n  \"startedAt\": {{startedAt}}\n}" }
+      }
+    },
+    {
+      "name": "Send contact message",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/contact",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Sam\",\n  \"email\": \"sam@example.com\",\n  \"subject\": \"New website\",\n  \"message\": \"Hi James, can we talk about a website for my business?\",\n  \"website\": \"\",\n  \"startedAt\": {{startedAt}}\n}"
+        }
+      }
+    }
+  ]
+}

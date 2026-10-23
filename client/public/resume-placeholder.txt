@@ -1,0 +1,5 @@
+Resume placeholder
+
+Replace this file with your real resume:
+1. Save your resume as  client/public/James-Namata-Resume.pdf
+2. In client/src/config/site.js, set  resumeUrl: '/James-Namata-Resume.pdf'

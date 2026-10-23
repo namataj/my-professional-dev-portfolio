@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/* Design tokens. Change colors or fonts here and the whole site follows. */
+@theme {
+  --color-navy-950: #060E22;
+  --color-navy-900: #0A1630;
+  --color-navy-800: #12213F;
+  --color-navy-700: #1C2E52;
+  --color-charcoal: #1E242E;
+  --color-electric: #2563FF;
+  --color-electric-dark: #1849D6;
+  --color-cyan: #1FD1E8;
+  --color-mist: #F3F5F9;
+  --color-cloud: #E4E8EF;
+  --color-slate-ink: #4A5568;
+  --color-steel: #AEB9CC;
+
+  --font-display: "Schibsted Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Overall text size for the whole site. Every size is relative to this,
+       so changing this one value scales all text evenly
+       (100% = 16px, 112.5% = 18px, 118.75% = 19px). */
+    font-size: 112.5%;
+  }
+  body {
+    @apply bg-white font-sans text-charcoal antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display text-balance;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+  }
+  h3, h4 {
+    line-height: 1.3;
+    text-wrap: pretty;
+  }
+  /* Clear, consistent keyboard focus everywhere */
+  :focus-visible {
+    outline: 3px solid var(--color-cyan);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: var(--color-cyan);
+    color: var(--color-navy-900);
+  }
+}
+
+/* Reusable classes. Defined with @utility so they work with variants and @apply. */
+@utility container-page {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+}
+@utility text-gradient {
+  background: linear-gradient(95deg, var(--color-electric) 0%, var(--color-cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 font-display text-[0.95rem] font-semibold transition-colors duration-150;
+}
+@utility btn-primary {
+  @apply btn bg-electric text-white hover:bg-electric-dark;
+}
+@utility btn-cyan {
+  @apply btn bg-cyan text-navy-900 hover:bg-white;
+}
+@utility btn-ghost-dark {
+  @apply btn border border-white/25 text-white hover:border-cyan hover:text-cyan;
+}
+@utility btn-ghost-light {
+  @apply btn border border-cloud text-navy-900 hover:border-electric hover:text-electric;
+}
+@utility field-label {
+  @apply mb-1.5 block text-sm font-semibold text-navy-900;
+}
+@utility field {
+  @apply w-full rounded-lg border border-cloud bg-white px-4 py-3 text-[0.98rem] text-charcoal placeholder:text-slate-400 transition-colors focus:border-electric focus:outline-none focus-visible:outline-none focus:ring-3 focus:ring-electric/20;
+}
+@utility field-error {
+  @apply mt-1.5 text-sm font-medium text-red-600;
+}
+@utility grid-lines {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
