@@ -55,7 +55,7 @@ export default function Logo({ onClick }) {
         <span className="font-display text-base font-bold tracking-tight text-white sm:text-lg">
           James <span className="text-cyan">Namata</span>
         </span>
-        <span className="mt-1 hidden text-[0.6rem] font-medium uppercase tracking-[0.22em] text-steel sm:block">
+        <span className="mt-1 text-[0.55rem] font-medium uppercase tracking-[0.18em] text-steel sm:text-[0.6rem] sm:tracking-[0.22em]">
           Software Engineer
         </span>
       </span>

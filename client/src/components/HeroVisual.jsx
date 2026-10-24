@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'motion/react';
-import { HeartPulse } from 'lucide-react';
+import { Code, FlaskConical, Globe, HeartPulse } from 'lucide-react';
 import Portrait from './Portrait.jsx';
 
 // The hero's signature: a heartbeat trace that turns into circuit lines,
@@ -9,14 +9,24 @@ const VB_W = 500;
 const VB_H = 540;
 const pct = (v, total) => `${(v / total) * 100}%`;
 
-// Each chip sits at the end of a trace. x/y are viewBox coordinates.
+// Each chip sits at the end of a trace. x/y are viewBox coordinates;
+// anchor says which edge of the chip sits on x (centered by default).
 const chips = [
   { label: 'React', x: 90, y: 30, color: '#61DAFB' },
   { label: 'JavaScript', x: 420, y: 30, color: '#F7DF1E' },
-  { label: 'Node.js', x: 476, y: 250, color: '#5FA04E' },
+  { label: 'Node.js', x: 500, y: 250, color: '#5FA04E', anchor: 'right' },
   { label: 'MySQL', x: 408, y: 500, color: '#4479A1' },
   { label: 'Selenium', x: 64, y: 434, color: '#43B02A' },
 ];
+
+// Professional expertise labels, one on each side of the portrait.
+const expertise = [
+  { label: 'Healthcare Informatics', Icon: HeartPulse, x: 250, y: 30, anchor: 'center' },
+  { label: 'Software Development', Icon: Code, x: 0, y: 252, anchor: 'left' },
+  { label: 'Software Testing & Automation', Icon: FlaskConical, x: 500, y: 330, anchor: 'right' },
+  { label: 'Website & Web Application Development', Icon: Globe, x: 280, y: 398, anchor: 'center' },
+];
+const anchorClass = { left: '', center: '-translate-x-1/2', right: '-translate-x-full' };
 
 // Photo frame (4:3, matching the photo so nothing is cropped away).
 const PHOTO = { x: 24, y: 64, w: 452, h: 339 };
@@ -32,6 +42,9 @@ const branches = [
 ];
 const solderPoints = [[64, 466], [270, 466], [134, 64], [372, 64]];
 
+// Below a 400px-wide visual the floating labels would be too small to read,
+// so they move into a grid under the photo instead (the @min-[400px] classes).
+
 export default function HeroVisual() {
   const reduce = useReducedMotion();
   const draw = (delay) =>
@@ -44,75 +57,106 @@ export default function HeroVisual() {
         };
 
   return (
-    <div className="relative mx-auto aspect-[500/540] w-full max-w-[700px]">
-      {/* Portrait frame */}
-      <div
-        className="absolute overflow-hidden rounded-[22px] border border-white/10 shadow-[0_30px_80px_-30px_rgba(37,99,255,0.55)]"
-        style={{ left: pct(PHOTO.x, VB_W), top: pct(PHOTO.y, VB_H), width: pct(PHOTO.w, VB_W), height: pct(PHOTO.h, VB_H) }}
-      >
-        <Portrait />
-      </div>
+    <div className="@container mx-auto w-full max-w-[min(100%,36rem)] sm:max-w-[38rem] lg:max-w-[min(48rem,calc((100svh-72px-7rem)*0.926))]">
+      <div className="relative aspect-[500/540] w-full">
+        {/* Portrait frame */}
+        <div
+          className="absolute overflow-hidden rounded-[22px] border border-white/10 shadow-[0_30px_80px_-30px_rgba(37,99,255,0.55)]"
+          style={{ left: pct(PHOTO.x, VB_W), top: pct(PHOTO.y, VB_H), width: pct(PHOTO.w, VB_W), height: pct(PHOTO.h, VB_H) }}
+        >
+          <Portrait />
+        </div>
 
-      {/* Traces */}
-      <svg
-        viewBox={`0 0 ${VB_W} ${VB_H}`}
-        className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id="trace-g" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="#2563FF" />
-            <stop offset="1" stopColor="#1FD1E8" />
-          </linearGradient>
-        </defs>
-        {branches.map((d, i) => (
+        {/* Traces */}
+        <svg
+          viewBox={`0 0 ${VB_W} ${VB_H}`}
+          className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient id="trace-g" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stopColor="#2563FF" />
+              <stop offset="1" stopColor="#1FD1E8" />
+            </linearGradient>
+          </defs>
+          {branches.map((d, i) => (
+            <motion.path
+              key={d}
+              d={d}
+              fill="none"
+              stroke="#1FD1E8"
+              strokeOpacity="0.45"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              {...draw(0.9 + i * 0.12)}
+            />
+          ))}
+          {/* photo → Healthcare Informatics (only when the labels float) */}
+          <g className="hidden @min-[400px]:inline">
+            <motion.path
+              d="M250 64 V47"
+              fill="none"
+              stroke="#1FD1E8"
+              strokeOpacity="0.45"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              {...draw(1.4)}
+            />
+            <circle cx="250" cy="64" r="3.5" fill="#1FD1E8" />
+          </g>
           <motion.path
-            key={d}
-            d={d}
+            d={pulsePath}
             fill="none"
-            stroke="#1FD1E8"
-            strokeOpacity="0.45"
-            strokeWidth="1.5"
+            stroke="url(#trace-g)"
+            strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
-            {...draw(0.9 + i * 0.12)}
+            {...draw(0.15)}
           />
-        ))}
-        <motion.path
-          d={pulsePath}
-          fill="none"
-          stroke="url(#trace-g)"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          {...draw(0.15)}
-        />
-        {/* solder points */}
-        {solderPoints.map(([cx, cy]) => (
-          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="3.5" fill="#1FD1E8" />
-        ))}
-      </svg>
+          {/* solder points */}
+          {solderPoints.map(([cx, cy]) => (
+            <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="3.5" fill="#1FD1E8" />
+          ))}
+        </svg>
 
-      {/* Tech chips */}
-      {chips.map((c, i) => (
-        <span
-          key={c.label}
-          className="hero-chip absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-md border border-white/15 bg-navy-800/95 px-2.5 py-1.5 font-display text-[0.78rem] font-semibold text-white shadow-lg sm:text-sm"
-          style={{ left: pct(c.x, VB_W), top: pct(c.y, VB_H), animationDelay: `${i * 0.7}s` }}
-        >
-          <span className="mr-1.5 inline-block h-2 w-2 rounded-full align-middle" style={{ background: c.color }} />
-          {c.label}
-        </span>
-      ))}
+        {/* Tech chips: fixed size on small screens, scaled with the visual once the labels float */}
+        {chips.map((c, i) => (
+          <span
+            key={c.label}
+            className={`hero-chip absolute -translate-y-1/2 whitespace-nowrap rounded-md border border-white/15 bg-navy-800/95 px-[0.75em] py-[0.45em] font-display text-[0.78rem] font-semibold leading-tight text-white shadow-lg @min-[400px]:text-[length:min(2.6cqw,0.85rem)] ${anchorClass[c.anchor || 'center']}`}
+            style={{ left: pct(c.x, VB_W), top: pct(c.y, VB_H), animationDelay: `${i * 0.7}s` }}
+          >
+            <span className="mr-[0.45em] inline-block h-[0.6em] w-[0.6em] rounded-full align-middle" style={{ background: c.color }} />
+            {c.label}
+          </span>
+        ))}
 
-      {/* Healthcare marker */}
-      <span
-        className="absolute flex -translate-y-1/2 items-center gap-2 rounded-lg bg-white px-3 py-2 font-display text-[0.8rem] font-semibold text-navy-900 shadow-xl sm:text-sm"
-        style={{ left: pct(170, VB_W), top: pct(PHOTO.y + PHOTO.h, VB_H) }}
-      >
-        <HeartPulse size={16} className="text-electric" aria-hidden="true" />
-        Health informatics
-      </span>
+        {/* Expertise labels (floating) */}
+        {expertise.map(({ label, Icon, x, y, anchor }, i) => (
+          <span
+            key={label}
+            className={`hero-chip absolute hidden -translate-y-1/2 ${anchorClass[anchor]} items-center gap-[0.5em] whitespace-nowrap rounded-lg border border-cyan/40 bg-navy-900/90 px-[0.8em] py-[0.5em] font-display text-[length:min(2.7cqw,0.9rem)] font-semibold leading-tight text-white shadow-[0_0_18px_-2px_rgba(31,209,232,0.45)] backdrop-blur-sm @min-[400px]:flex`}
+            style={{ left: pct(x, VB_W), top: pct(y, VB_H), animationDelay: `${0.35 + i * 0.7}s` }}
+          >
+            <Icon className="h-[1.15em] w-[1.15em] shrink-0 text-cyan" aria-hidden="true" />
+            {label}
+          </span>
+        ))}
+      </div>
+
+      {/* Expertise labels (small screens): a grid under the photo */}
+      <ul className="mt-5 grid grid-cols-2 gap-2.5 @min-[400px]:hidden" aria-label="Areas of expertise">
+        {expertise.map(({ label, Icon }) => (
+          <li
+            key={label}
+            className="flex items-center gap-2 rounded-lg border border-cyan/40 bg-navy-900/90 px-3 py-2.5 font-display text-[0.8rem] font-semibold leading-snug text-white shadow-[0_0_14px_-4px_rgba(31,209,232,0.45)]"
+          >
+            <Icon size={16} className="shrink-0 text-cyan" aria-hidden="true" />
+            {label}
+          </li>
+        ))}
+      </ul>
 
       <style>{`
         @keyframes chip-float { 0%,100% { margin-top: 0 } 50% { margin-top: -6px } }

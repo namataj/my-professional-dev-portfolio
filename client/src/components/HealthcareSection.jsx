@@ -9,7 +9,7 @@ export default function HealthcareSection() {
     <section className="relative overflow-hidden bg-navy-900 py-20 text-white sm:py-28" aria-labelledby="hc-heading">
       <div className="grid-lines absolute inset-0 [mask-image:linear-gradient(to_left,black,transparent_70%)]" aria-hidden="true" />
       <svg
-        className="absolute -right-10 top-16 hidden w-[560px] opacity-30 lg:block"
+        className="absolute -right-10 top-16 hidden w-[min(40vw,760px)] opacity-30 lg:block"
         viewBox="0 0 560 120"
         aria-hidden="true"
       >
@@ -17,12 +17,12 @@ export default function HealthcareSection() {
       </svg>
 
       <div className="container-page relative">
-        <div className="max-w-3xl">
+        <div className="max-w-4xl">
           <p className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-cyan">
             <GraduationCap size={16} aria-hidden="true" />
             Doctorate in Health Informatics — in progress
           </p>
-          <h2 id="hc-heading" className="mt-5 text-3xl font-bold sm:text-4xl">
+          <h2 id="hc-heading" className="heading-section mt-5 font-bold">
             Bridging Software Engineering &amp; Healthcare Innovation
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-steel">

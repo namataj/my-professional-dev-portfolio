@@ -23,14 +23,25 @@
   html {
     scroll-behavior: smooth;
     /* Overall text size for the whole site. Every size is relative to this,
-       so changing this one value scales all text evenly
-       (100% = 16px, 112.5% = 18px, 118.75% = 19px). */
-    font-size: 112.5%;
+       so it scales all text and spacing evenly. It grows with the screen:
+       17px on phones, about 18.5px on a 1366px laptop, 20px on 1920px and up.
+       Change the first/last values to set the smallest/largest size. */
+    font-size: clamp(1.0625rem, 0.95rem + 0.25vw, 1.25rem);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  html, body, #root {
+    width: 100%;
   }
   body {
     @apply bg-white font-sans text-charcoal antialiased;
     font-size: 1.0625rem;
     line-height: 1.65;
+    /* Safety net: nothing can push the page sideways on small screens. */
+    overflow-x: clip;
+  }
+  #root {
+    min-height: 100svh;
   }
   h1, h2, h3, h4 {
     @apply font-display text-balance;
@@ -54,8 +65,20 @@
 }
 
 /* Reusable classes. Defined with @utility so they work with variants and @apply. */
+/* Page container: fills the screen with fluid side padding, and stops growing
+   at about 1730px on a 1080p monitor so lines stay readable on ultrawides. */
 @utility container-page {
-  @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+  width: 100%;
+  max-width: 96rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.1rem, 4vw, 4.5rem);
+}
+/* Fluid heading sizes shared across pages */
+@utility heading-section {
+  font-size: clamp(1.75rem, 1.15rem + 1.6vw, 2.85rem);
+}
+@utility heading-page {
+  font-size: clamp(2.1rem, 1.2rem + 2.4vw, 3.6rem);
 }
 @utility text-gradient {
   background: linear-gradient(95deg, var(--color-electric) 0%, var(--color-cyan) 100%);

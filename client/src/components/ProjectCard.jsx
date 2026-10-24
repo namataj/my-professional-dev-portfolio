@@ -38,16 +38,16 @@ export default function ProjectCard({ project, onViewDetails }) {
         </ul>
 
         <div className="mt-auto flex flex-wrap items-center gap-2 pt-6">
-          <button type="button" onClick={() => onViewDetails?.(project)} className="btn-primary px-4 py-2 text-sm">
+          <button type="button" onClick={() => onViewDetails?.(project)} className="btn-primary px-4 py-2.5 text-sm sm:py-2">
             View Details
           </button>
           {github && (
-            <a href={github} target="_blank" rel="noopener noreferrer" className="btn-ghost-light px-3 py-2 text-sm">
+            <a href={github} target="_blank" rel="noopener noreferrer" className="btn-ghost-light px-3 py-2.5 text-sm sm:py-2">
               <GitHubIcon className="h-4 w-4" /> Code
             </a>
           )}
           {demo && (
-            <a href={demo} target="_blank" rel="noopener noreferrer" className="btn-ghost-light px-3 py-2 text-sm">
+            <a href={demo} target="_blank" rel="noopener noreferrer" className="btn-ghost-light px-3 py-2.5 text-sm sm:py-2">
               <ExternalLink size={16} aria-hidden="true" /> Live demo
             </a>
           )}

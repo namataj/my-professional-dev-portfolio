@@ -261,8 +261,8 @@ export function CtaBand({
     <section className="relative overflow-hidden bg-navy-900 py-20 text-white sm:py-24">
       <div className="grid-lines absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" aria-hidden="true" />
       <div className="container-page relative flex flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
-        <div className="max-w-3xl">
-          <h2 className="text-3xl font-extrabold sm:text-4xl">{title}</h2>
+        <div className="max-w-4xl">
+          <h2 className="heading-section font-extrabold">{title}</h2>
           <p className="mt-4 text-lg text-steel">{text}</p>
         </div>
         <div className="flex flex-wrap gap-3">

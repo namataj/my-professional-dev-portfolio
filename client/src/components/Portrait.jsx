@@ -16,6 +16,7 @@ export default function Portrait({ className = '', tone = 'dark' }) {
         alt={`Portrait of ${site.name}`}
         className={`h-full w-full object-cover object-center ${className}`}
         decoding="async"
+        fetchPriority="high"
       />
     );
   }

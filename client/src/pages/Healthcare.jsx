@@ -120,7 +120,7 @@ export default function Healthcare() {
         </svg>
         <div className="container-page relative text-center">
           <p className="font-display text-lg font-semibold text-cyan">My vision</p>
-          <h2 className="mx-auto mt-4 max-w-4xl text-3xl font-extrabold leading-tight sm:text-5xl">
+          <h2 className="mx-auto mt-4 max-w-5xl text-[clamp(1.85rem,1.1rem+2.2vw,3.4rem)] font-extrabold leading-tight">
             A future where technology makes healthcare more{' '}
             <span className="text-gradient">connected, efficient, accessible, and patient-centered.</span>
           </h2>

@@ -48,7 +48,7 @@ export default function About() {
         <div className="grid-lines absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent)]" aria-hidden="true" />
         <div className="container-page relative grid items-start gap-12 py-16 sm:py-20 lg:grid-cols-2">
           <div>
-            <h1 className="text-4xl font-extrabold sm:text-5xl">About me</h1>
+            <h1 className="heading-page font-extrabold">About me</h1>
             <p className="mt-3 text-steel">{site.fullTitle}</p>
             <ExperienceBadge className="mt-7" />
             <div className="mt-8 max-w-2xl space-y-5 text-lg leading-relaxed text-steel">

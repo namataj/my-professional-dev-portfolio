@@ -122,7 +122,7 @@ export default function QuoteForm({ initialService = '' }) {
       </div>
 
       <div>
-        <label className="flex cursor-pointer items-start gap-3 text-[0.96rem]">
+        <label className="flex cursor-pointer items-start gap-3 py-1 text-[0.96rem]">
           <input
             type="checkbox"
             name="noPhiConfirmed"
@@ -130,7 +130,7 @@ export default function QuoteForm({ initialService = '' }) {
             onChange={onChange}
             aria-invalid={errors.noPhiConfirmed ? true : undefined}
             aria-describedby={errors.noPhiConfirmed ? 'noPhiConfirmed-error' : undefined}
-            className="mt-1 h-4 w-4 shrink-0 accent-electric"
+            className="mt-0.5 h-5 w-5 shrink-0 accent-electric"
           />
           I confirm my request contains no patient health information.
         </label>
