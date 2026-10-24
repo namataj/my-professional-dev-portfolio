@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 
 export default function Logo({ onClick }) {
   return (
-    <Link to="/" onClick={onClick} className="group flex items-center gap-2.5" aria-label="James Namata, home">
+    <Link to="/" onClick={onClick} className="group flex shrink-0 items-center gap-2.5" aria-label="James Namata, home">
       {/* JN monogram with code brackets, redrawn from the brand logo as a vector so it stays crisp at any size. */}
       <svg
         viewBox="0 0 100 60"
-        className="h-9 w-auto shrink-0 drop-shadow-[0_0_6px_rgba(31,209,232,0.35)] transition-[filter] duration-200 group-hover:drop-shadow-[0_0_10px_rgba(31,209,232,0.6)] sm:h-10"
+        className="h-10 w-auto shrink-0 drop-shadow-[0_0_6px_rgba(31,209,232,0.35)] transition-[filter] duration-200 group-hover:drop-shadow-[0_0_10px_rgba(31,209,232,0.6)] sm:h-11"
         aria-hidden="true"
       >
         <defs>
@@ -51,11 +51,11 @@ export default function Logo({ onClick }) {
         />
       </svg>
 
-      <span className="flex flex-col leading-none">
-        <span className="font-display text-base font-bold tracking-tight text-white sm:text-lg">
+      <span className="flex flex-col whitespace-nowrap leading-none">
+        <span className="font-display text-[1.1rem] font-bold tracking-tight text-white sm:text-[1.2rem]">
           James <span className="text-cyan">Namata</span>
         </span>
-        <span className="mt-1 text-[0.55rem] font-medium uppercase tracking-[0.18em] text-steel sm:text-[0.6rem] sm:tracking-[0.22em]">
+        <span className="mt-1 text-[0.62rem] font-medium uppercase tracking-[0.2em] text-steel sm:text-[0.66rem] sm:tracking-[0.22em]">
           Software Engineer
         </span>
       </span>

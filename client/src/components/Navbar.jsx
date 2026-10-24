@@ -14,7 +14,7 @@ export const navLinks = [
 ];
 
 const linkClass = ({ isActive }) =>
-  `rounded-md px-3 py-2 text-[0.95rem] font-medium transition-colors ${
+  `whitespace-nowrap rounded-md px-2 py-2 text-[0.9rem] font-medium transition-colors xl:px-3 xl:text-[0.95rem] ${
     isActive ? 'text-cyan' : 'text-steel hover:text-white'
   }`;
 
@@ -51,7 +51,7 @@ export default function Navbar() {
       <nav className="container-page flex h-[72px] items-center justify-between" aria-label="Main">
         <Logo />
 
-        <ul className="hidden items-center gap-1 lg:flex">
+        <ul className="hidden items-center gap-0.5 lg:flex xl:gap-1">
           {navLinks.map((l) => (
             <li key={l.to}>
               <NavLink to={l.to} end={l.to === '/'} className={linkClass}>
@@ -62,7 +62,7 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <Link to="/hire-me" className="btn-cyan hidden px-5 py-2.5 sm:inline-flex">
+          <Link to="/hire-me" className="btn-cyan hidden whitespace-nowrap px-4 py-2.5 sm:inline-flex xl:px-5">
             Hire Me
           </Link>
           <button
